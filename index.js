@@ -1,11 +1,52 @@
-// Detectando clique do mouse nos botões da bateria.
+var numberOfDrumButtons = document.querySelectorAll(".drum").length;
 
-// Laço que percorre todos os botões da bateria.
+for (var i = 0; i < numberOfDrumButtons; i++) {
+    document.querySelectorAll(".drum")[i].addEventListener("click", function () {
+        var buttonInnerHTML = this.innerHTML;
+        makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
+    });
+}
 
-// Adicionar um evento a cada botão para o evento de "click".
-    
-// Detectar o pressionamento de teclas no teclado.
+document.addEventListener("keydown", function (event) {
+    makeSound(event.key);
+    buttonAnimation(event.key);
+});
 
-// Função que toca o som correspondente a uma tecla (pesquisar sobre o case).
+function makeSound(key) {
+    switch (key) {
+        case "w":
+            new Audio("sounds/tom1.mp3").play();
+            break;
+        case "a":
+            new Audio("sounds/tom2.mp3").play();
+            break;
+        case "s":
+            new Audio("sounds/tom3.mp3").play();
+            break;
+        case "d":
+            new Audio("sounds/tom4.mp3").play();
+            break;
+        case "j":
+            new Audio("sounds/snare.mp3").play();
+            break;
+        case "k":
+            new Audio("sounds/crash.mp3").play();
+            break;
+        case "l":
+            new Audio("sounds/kickbass.mp3").play();
+            break;
+        default:
+            console.log(key);
+    }
+}
 
-// Função que anima o botão que foi pressionado ou clicado.
+function buttonAnimation(currentKey) {
+    var activeButton = document.querySelector("." + currentKey);
+    if (activeButton) {
+        activeButton.classList.add("pressed");
+        setTimeout(function () {
+            activeButton.classList.remove("pressed");
+        }, 100);
+    }
+}
